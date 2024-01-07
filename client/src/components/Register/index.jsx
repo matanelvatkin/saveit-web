@@ -8,7 +8,8 @@ import { familyContext } from "../../Layout";
 export default function Register() {
   const { setFamily } = useContext(familyContext);
   const [teams, setTeams] = useState([]);
-
+  const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
   const nav = useNavigate();
   const onFinish = async (values) => {
     values.my_family = [];
@@ -55,6 +56,10 @@ export default function Register() {
               required: true,
               message: "נא למלא אימייל תקין",
             },
+            {
+              pattern: emailRegex,
+              message: "נא למלא אימייל תקין",
+            }
           ]}
         >
           <Input placeholder="דואר אלקטרוני" className={style.input_item} />
@@ -78,6 +83,10 @@ export default function Register() {
               required: true,
               message: "נא להזין סיסמא",
             },
+            {
+              pattern: passRegex,
+              message:'סיסמא צריכה להיות לפחות 8 תוים עם אות אחת גדולה, אות אחת קטנה, מספר ותו מיוחד'
+            }
           ]}
         >
           <Input.Password placeholder="סיסמא" className={style.input_item} />

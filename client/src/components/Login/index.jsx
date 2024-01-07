@@ -49,7 +49,8 @@ export default function Login() {
               required: true,
               message: "נא להזין סיסמא",
             },
-          ]}
+          ]
+        }
         >
           <Input.Password placeholder="נא להכניס סיסמה" className={style.input_item} />
         </Form.Item>
