@@ -9,6 +9,9 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+    "rewrites":  [
+      {"source": "/(.*)", "destination": "/"}
+    ],
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "antd": "^5.12.1",
