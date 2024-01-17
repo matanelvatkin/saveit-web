@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import style from "./style.module.css";
 import io from "socket.io-client";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "../../components/Home";
 import AdminPage from "../AdminPage";
 import { familyContext } from "../../Layout";
@@ -12,6 +12,8 @@ export const socketContext = createContext();
 export default function HomePage() {
   const [socket, setSocket] = useState();
   const {family} = useContext(familyContext)
+  const nav = useNavigate()
+  useEffect(() => {if(!family)nav('../sign')},[family])
   useEffect( () => {
     const tempSocket = io.connect(import.meta.env.VITE_BASIC_SERVER, {
       transportOptions: {
