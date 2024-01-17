@@ -48,8 +48,11 @@ const routers = (io, socket) => {
     try {
       const userData = await validToken(socket.handshake.headers.authorization);
       if (!userData) throw "jwt";
-      fs.writeFileSync("./upload/"+data.file.name, data.file.originFileObj)
-      data.file = `upload/${data.file.name}`
+      if(data.file.name){
+        fs.writeFileSync("./upload/"+data.file.name, data.file.originFileObj)
+        data.file = `upload/${data.file.name}`
+      }
+      delete data.file
       const res = await dayService.updateDay(
         { dayNumber: data.dayNumber },
         data

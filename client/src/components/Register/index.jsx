@@ -8,17 +8,24 @@ import { familyContext } from "../../Layout";
 export default function Register() {
   const { setFamily } = useContext(familyContext);
   const [teams, setTeams] = useState([]);
+  const [errMessage, setErrMessage] = useState(false);
   const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
   const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
   const nav = useNavigate();
   const onFinish = async (values) => {
     values.my_family = [];
-    const res = await axios.post(
-      `${import.meta.env.VITE_BASIC_SERVER}api/register`,
-      values
-    );
-    setFamily(res.data);
-    nav("../addusers");
+    try{
+      const res = await axios.post(
+        `${import.meta.env.VITE_BASIC_SERVER}api/register`,
+        values
+        );
+        setErrMessage(false)
+        setFamily(res.data);
+        nav("../addusers");
+      }
+      catch(err){
+        setErrMessage('משהו השתבש אנא נסה שוב')
+      }
   };
   const onFinishFailed = (errorInfo) => {};
   const go = async () => {
@@ -114,7 +121,7 @@ export default function Register() {
           </Button>
         </Form.Item>
       </Form>
-
+          {errMessage&&<span>{errMessage}</span>}
       <Button
         type="link"
         htmlType="button"

@@ -33,8 +33,9 @@ export default function Main() {
     setTeam(res.data);
   };
   useEffect(() => {
+    if(family)
     go();
-  }, []);
+  }, [family]);
   useEffect(() => {
     if (!dayData && socket) {
       socket.emit("getDay", { dayNumber: team.dayNumber });
@@ -65,7 +66,7 @@ export default function Main() {
   return (
     <main className={style.main}>
       {dayData ? (
-        <div>
+        <div className={style.mainData}>
           <div className={style.title}>
             {team.dayNumber > dayData.dayNumber && (
               <FaArrowRight
@@ -90,7 +91,7 @@ export default function Main() {
           <Video videoId={dayData.videoIdHow} />
           {dayData.file ? (
             <>
-              <Title text={"טיפ יומי"} />
+              <Title text={"דף עבודה יומי"} />
               <Button
                 onClick={() => {
                   downloadFile(dayData.file);
@@ -104,7 +105,7 @@ export default function Main() {
           )}
         </div>
       ) : null}
-      {user.role == "admin" && (
+      {user&&user.role == "admin" && (
         <Button
           onClick={() => {
             nav("/admin");

@@ -29,9 +29,6 @@ export default function AddUser() {
       nav('../')
     }
   }, []);
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
   const endRegister = async () => {
     const res = await axios.post(
       `${import.meta.env.VITE_BASIC_SERVER}api/addusers`,
@@ -90,7 +87,7 @@ export default function AddUser() {
                       style={{
                         borderRadius: "50%",
                       }}
-                      src={`https://avatar.oxro.io/avatar.svg?name=${userData.firstName} ${userData.lastName}`}
+                      src={`https://ui-avatars.com/api/?name=${userData.firstName||'a'}+${userData.lastName||'a'}&background=random`}
                     />
                   }
                 >

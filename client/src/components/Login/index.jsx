@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.css";
@@ -7,17 +7,21 @@ import axios from "axios";
 
 export default function Login() {
   const nav = useNavigate();
+  const [errMessage, setErrMessage] = useState(false);
   const { family, setFamily } = useContext(familyContext);
   const onFinish = async (values) => {
-    const res = await axios.post(
-      `${import.meta.env.VITE_BASIC_SERVER}api/login`,
-      values
-    );
-    setFamily(res.data)
-    nav("../choseuser");
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BASIC_SERVER}api/login`,
+        values
+      )
+      setFamily(res.data);
+      nav("../choseuser");
+    } catch (err) {
+      setErrMessage("אימייל או סיסמא שגויים");
+    }
   };
-  const onFinishFailed = (errorInfo) => {
-  };
+  const onFinishFailed = (errorInfo) => {};
   return (
     <div className={style.login}>
       <Form
@@ -39,7 +43,10 @@ export default function Login() {
             },
           ]}
         >
-          <Input placeholder="דואר אלקטרוני או שם משתמש" className={style.input_item} />
+          <Input
+            placeholder="דואר אלקטרוני או שם משתמש"
+            className={style.input_item}
+          />
         </Form.Item>
 
         <Form.Item
@@ -49,10 +56,12 @@ export default function Login() {
               required: true,
               message: "נא להזין סיסמא",
             },
-          ]
-        }
+          ]}
         >
-          <Input.Password placeholder="נא להכניס סיסמה" className={style.input_item} />
+          <Input.Password
+            placeholder="נא להכניס סיסמה"
+            className={style.input_item}
+          />
         </Form.Item>
 
         <Form.Item className={style.form_item}>
@@ -60,10 +69,8 @@ export default function Login() {
             כניסה לאתגר
           </Button>
         </Form.Item>
-
-
-      
       </Form>
+      {errMessage && <span>{errMessage}</span>}
       <Button
         type="link"
         htmlType="button"

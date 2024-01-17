@@ -16,7 +16,7 @@ export default function Video({ videoId }) {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, [videoId]);
   return (
     <>
       <div style={{ width: "100%", height: "240px", position: "relative" }}>
