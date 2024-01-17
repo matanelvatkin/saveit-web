@@ -42,9 +42,9 @@ export default function Footer() {
 
         {isFamilyBar ? <FamilyAvatar close={setIsFamilyBar} /> : null}
         <img
-          src={`https://avatar.oxro.io/avatar.svg?name=${
+          src={`https://ui-avatars.com/api/?name=${
             user ? user.firstName : "p"
-          } ${user ? user.lastName : "p"}`}
+          }+${user ? user.lastName : "p"}&background=random`}
           className={style.profile}
           onClick={openFamilyBar}
         />

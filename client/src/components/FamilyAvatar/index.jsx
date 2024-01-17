@@ -43,7 +43,7 @@ export default function FamilyAvatar({ close }) {
               key={userFromData._id}
             >
               <img
-                src={`https://avatar.oxro.io/avatar.svg?name=${userFromData.firstName} ${userFromData.lastName}`}
+                src={`https://ui-avatars.com/api/?name=${userFromData.firstName||'a'}+${userFromData.lastName||'a'}&background=random`}
                 className={style.profile}
               />
             </div>

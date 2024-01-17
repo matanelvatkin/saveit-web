@@ -37,8 +37,8 @@ export default function Layout() {
         <div className={style.layout}>
           <Header />
           <Routes>
-            <Route path="*" element={user ? <HomePage /> : <LoginPage />} />
-            <Route path="/*" element={user ? <HomePage /> : <LoginPage />} />
+            <Route path="*" element={<HomePage /> } />
+            <Route path="/*" element={<HomePage />} />
             <Route path="/sign/*" element={<LoginPage />} />
           </Routes>
         </div>

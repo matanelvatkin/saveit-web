@@ -32,7 +32,7 @@ cron.schedule('0 0 0 * * *', async() => {
       await teamChallengeController.update({_id:team._id,isActive:true},{$inc:{dayNumber:1}});
     }
     if(team.date.getTime()<=Date.now()&&team.dayNumber>=24){
-      await teamChallengeController.update({_id:team._id,isActive:true},{$isActive:false});
+      await teamChallengeController.update({_id:team._id,isActive:true},{$inc:{dayNumber:1},isActive:false});
     }
   });
 });
